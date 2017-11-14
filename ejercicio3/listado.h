@@ -1,6 +1,8 @@
 #ifndef LISTADO_H
 #define LISTADO_H
 
+#include <QDebug>
+
 template <class T> class Listado  {
 public:
         Listado(int n=10);
@@ -8,6 +10,8 @@ public:
         T get(int i) const;
         int length() const;
         Listado<T> operator+(const Listado<T> otro);
+        Listado<T> operator++();
+        Listado<T> operator++(int);
 
 private:
         int cantidad;
@@ -16,11 +20,13 @@ private:
 };
 
 
-template <class T> Listado<T>::Listado(int n) : cantidad(n), libre(0), v(new T[n])  {
+template <class T>
+Listado<T>::Listado(int n) : cantidad(n), libre(0), v(new T[n])  {
 
 }
 
-template <class T> bool Listado<T>::add(T nuevo)  {
+template <class T>
+bool Listado<T>::add(T nuevo)  {
         if (libre < cantidad)  {
                 v[libre] = nuevo;
                 libre++;
@@ -30,11 +36,14 @@ template <class T> bool Listado<T>::add(T nuevo)  {
 }
 
 
-template <class T> T Listado<T>::get(int i) const  {  return v[i];  }
+template <class T>
+T Listado<T>::get(int i) const  {  return v[i];  }
 
-template <class T> int Listado<T>::length() const  {  return libre;  }
+template <class T>
+int Listado<T>::length() const  {  return libre;  }
 
-template <class T> Listado<T> Listado<T>::operator+(const Listado<T> otro)  {
+template <class T>
+Listado<T> Listado<T>::operator+(const Listado<T> otro)  {
         Listado<T> res(this->length() + otro.length());
 
         for(int i = 0;i<this->length();i++)
@@ -44,6 +53,29 @@ template <class T> Listado<T> Listado<T>::operator+(const Listado<T> otro)  {
             res.add(otro.get(i));
 
         return res;
+}
+
+template <class T>
+Listado<T> Listado<T>::operator++()  {
+    Listado<T> res(this->length()*2);
+
+    for(int i = 0;i<this->length();i++)
+        res.add(this->get(i));
+    for(int i = 0;i<this->length();i++)
+        res.add(this->get(i));
+
+    return res;
+}
+
+template <class T>
+Listado<T> Listado<T>::operator++(int)  {
+    Listado<T> res(cantidad*2);
+    for(int i = 0;i<this->length();i++)
+        res.add(this->get(i));
+    for(int i = 0;i<this->length();i++)
+        res.add(this->get(i));
+
+    return res;
 }
 
 #endif // LISTADO_H

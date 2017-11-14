@@ -22,8 +22,15 @@ int main(int argc, char *argv[])
     for(int i = 0;i<l2.length();i++)
         qDebug() << l2.get(i);
     Listado<int> l3 = l + l2;
-    qDebug() << "Listado1 + Listado2:";
+    qDebug() << "Listado3 = Listado1 + Listado2:";
     for(int i = 0;i<l3.length();i++)
         qDebug() << l3.get(i) << " ";
+
+    l3 = l3++;
+
+    qDebug() << "Listado3++:";
+    for(int i = 0;i<l3.length();i++)
+        qDebug() << l3.get(i);
+
     return a.exec();
 }
