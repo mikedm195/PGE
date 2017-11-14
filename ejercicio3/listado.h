@@ -57,7 +57,7 @@ Listado<T> Listado<T>::operator+(const Listado<T> otro)  {
 
 template <class T>
 Listado<T> Listado<T>::operator++()  {
-    Listado<T> res(this->length()*2);
+    Listado<T> res(cantidad*2);
 
     for(int i = 0;i<this->length();i++)
         res.add(this->get(i));
